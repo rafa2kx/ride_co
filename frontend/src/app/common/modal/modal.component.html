@@ -1,0 +1,14 @@
+<div class="flex justify-center bg-black bg-opacity-20 fixed inset-0 z-40">
+  <section class="z-50 rounded-none min-w-[36rem] max-md:max-w-full">
+    <div class="w-full bg-white rounded-md max-md:max-w-full mt-5 max-h-[95%] overflow-y-auto"
+    >
+      <div *ngIf="[title]" class="flex px-5 pt-2 pb-1 text-center">
+        <h4 class="flex-1 font-semibold my-2 text-cobalt">{{ title }}</h4>
+      </div>
+      <hr class="border-gray-300 mt-0 mb-2" />
+      <div class="p-3">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </section>
+</div>

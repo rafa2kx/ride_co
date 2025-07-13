@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16
+    container_name: pg-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: grocery_list
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: flask-api
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: grocery_list
+      DB_USER: user
+      DB_PASSWORD: password
+      DATABASE_URL: 'postgresql://user:password@db:5432/grocery_list'
+      JWT_SECRET_KEY: 'd24f6c3182fa4b50b3e1cfc7d3a7f54c8eb91d6b44b57f9d8b5b2f734ea93e44'
+      JWT_ACCESS_TOKEN_EXPIRES: 3600
+    ports:
+      - "5000:5000"
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #   container_name: angular-app
+  #   depends_on:
+  #     - backend
+  #   ports:
+  #     - "4200:4200"
+
+volumes:
+  pgdata:
