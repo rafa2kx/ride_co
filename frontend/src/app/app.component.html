@@ -4,7 +4,7 @@
     class="flex items-center justify-between p-4 bg-gray-800 text-white shadow-md"
   >
     <div class="flex items-center gap-4">
-      <a href="/" class="flex items-center gap-2">
+      <a href="/" class="flex items-center gap-2 hover:scale-[1.02]">
         <img src="/assets/logo.png" alt="Logo" class="h-10 w-10 rounded-full" />
         <h1 class="text-xl font-bold">{{ title }}</h1>
       </a>
@@ -14,18 +14,20 @@
       <div class="flex items-center gap-6 text-lg">
         <a
           href="/products"
-          class="text-gray-300 hover:text-white hover:scale-[1.02] transition"
+          class="text-gray-300 hover:text-white hover:scale-[1.02] transition flex items-center gap-2"
         >
-          <i class="ti ti-building-store"></i> Products
+          <i class="ti ti-building-store"></i>
+          <p class="hidden md:block">Products</p>
         </a>
         <span
           (click)="showSharingModal = true"
-          class="text-gray-300 hover:text-gray-300 hover:scale-[1.02] transition cursor-pointer"
+          class="text-gray-300 hover:text-gray-300 hover:scale-[1.02] transition cursor-pointer flex items-center gap-2"
         >
-          <i class="ti ti-share"></i> Share
+          <i class="ti ti-share"></i>
+          <div class="hidden md:block">Share</div>
         </span>
       </div>
-      <div class="text-right">
+      <div class="text-right hidden md:block">
         <p class="font-medium">{{ user.username }}</p>
         <p class="text-sm text-gray-300">{{ user.email }}</p>
       </div>

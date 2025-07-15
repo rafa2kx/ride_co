@@ -76,4 +76,4 @@ def delete_grocery_list(id:int):
         return make_response(data=None, message="Invalid input", status_code=400)
     
     added_list = groceries_service.delete_grocery_list(id)
-    return make_response(data=added_list, message="Grocery list added successfully", status_code=201)
+    return make_response(data=added_list, message="Grocery list deleted successfully", status_code=201)

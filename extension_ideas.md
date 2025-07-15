@@ -6,7 +6,7 @@
 Enhance the application by integrating with external search engines or APIs that provide geolocation-based product availability. This would allow users to find where specific grocery products are available near their location.
 
 ### Features
-- Connect to services like Google Places API or Yelp Fusion API.
+- Connect to services like Google Places API.
 - Accept product name and user location as input.
 - Display a list of nearby stores that have the product in stock.
 - Map integration for visual representation.

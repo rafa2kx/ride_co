@@ -11,6 +11,7 @@
           type="text"
           id="name"
           name="name"
+          #groceryListname="ngModel"
           [(ngModel)]="model.name"
           class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="E.g. Weekly Groceries"
@@ -27,7 +28,9 @@
         <i class="ti ti-code-variable-plus"></i>
       </button>
     </div>
-
+    <p *ngIf="!model.name" class="text-sm text-red-500 mt-1">
+      Product Name is required.
+    </p>
     <div>
       <div
         *ngIf="showDescription || (model.description && mode === 'view')"
@@ -97,6 +100,9 @@
           class="w-12 p-2 border rounded-lg"
           placeholder="Quantity"
           [disabled]="mode === 'view'"
+          required
+          min="1"
+          step="1"
         />
         <button
           *ngIf="mode !== 'view'"
@@ -105,7 +111,7 @@
           (click)="!item.purchased && removeItem(i)"
           class="w-8 h-8 my-auto bg-red-500 text-white p-auto rounded-full hover:bg-red-600 transition"
         >
-          <i class="ti ti-x"></i>
+          <i class="ti ti-trash"></i>
         </button>
       </div>
     </div>
@@ -126,6 +132,7 @@
         class="flex-1 max-w-10 mt-4 bg-blue-500 text-white py-1 rounded-lg shadow hover:bg-blue-600 transition text-xl"
         (submit)="saveGroceryList()"
         (click)="saveGroceryList()"
+        [disabled]="groceryListname.invalid"
       >
         <i class="ti ti-cloud-up"></i>
       </button>

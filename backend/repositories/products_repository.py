@@ -19,5 +19,27 @@ class ProductsRepository(BaseRepository):
         self.session.flush()
         return new_product.as_dict()
     
+    def update_product(self, product_id:int, product: dict):
+        """Update a Product."""
+        record = self.session.query(Product).filter(Product.id == product_id).first()
+        if not record:
+            return None
+        
+        for key, value in product.items():
+            setattr(record, key, value)
+        
+        self.session.flush()
+        return record.as_dict()
+    
+    def delete_product(self, product_id: int):
+        """Delete a Product."""
+        product = self.session.query(Product).filter(Product.id == product_id).first()
+        if not product:
+            return None
+        
+        self.session.delete(product)
+        self.session.flush()
+        return product.as_dict()
+    
         
         

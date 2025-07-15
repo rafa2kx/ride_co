@@ -8,6 +8,6 @@ class Product(BaseModel):
     name = Column(String(100), nullable=False)
     description = Column(String(255), nullable=True)
     price = Column(Float, nullable=False)
-    category_id = Column(Integer, db.ForeignKey('categories.id'), nullable=False)
+    category_id = Column(Integer, db.ForeignKey('categories.id'), nullable=True)
 
     category = db.relationship('Category', back_populates='products')
