@@ -8,11 +8,12 @@ from models.grocery_list import GroceryList
 
 class GroceriesRepository(BaseRepository):
     
-    def get_all_groceries(self):
+    def get_all_groceries(self, family_id: int):
         """Fetch all grocery lists."""
         lists = self.session.query(GroceryList) \
             .join(GroceryList.items) \
             .outerjoin(GroceryListItem.product) \
+            .filter(GroceryList.family_id == family_id) \
             .all()
 
         result = []
@@ -29,7 +30,7 @@ class GroceriesRepository(BaseRepository):
             new_item = GroceryListItem(**item, grocery_list=new_list)
             self.session.add(new_item)
         self.session.add(new_list)
-        self.session.commit()
+        self.session.flush()
         return new_list.as_dict()
     
     def update_grocery_list(self, list_id: int, grocery_list: dict):
@@ -61,7 +62,7 @@ class GroceriesRepository(BaseRepository):
                 self.session.delete(existing_items[item_id])
         
 
-        self.session.commit()
+        self.session.flush()
         return existing_list.as_dict()
     
     def get_grocery_list_by_id(self, list_id: int):
@@ -76,6 +77,28 @@ class GroceriesRepository(BaseRepository):
         
         list_data = self._convert_grocery_list_model_to_dict(grocery_list)
         return list_data
+    
+    def update_item(self, item_id: int, grocery_list_item: dict):
+        """Update a grocery list item."""
+        item = self.session.query(GroceryListItem).filter(GroceryListItem.id == item_id).first()
+        if not item:
+            return None
+        
+        for key, value in grocery_list_item.items():
+            setattr(item, key, value)
+        
+        self.session.flush()
+        return item.as_dict()
+    
+    def delete_grocery_list(self, list_id: int):
+        """Delete a grocery list."""
+        grocery_list = self.session.query(GroceryList).filter(GroceryList.id == list_id).first()
+        if not grocery_list:
+            return None
+        
+        self.session.delete(grocery_list)
+        self.session.flush()
+        return grocery_list.as_dict()
     
     def _convert_grocery_list_model_to_dict(self, model: GroceryList) -> dict:
         """Convert a SQLAlchemy model to a dictionary."""

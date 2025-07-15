@@ -1,5 +1,5 @@
 from sqlalchemy import Column
-from sqlalchemy import Integer, String
+from sqlalchemy import Integer, String, Boolean
 from models.base_model import BaseModel
 from extension import db
 
@@ -15,4 +15,4 @@ class GroceryListItem(BaseModel):
     custom_name = Column(String(255), nullable=True)
     quantity = Column(Integer, nullable=False, default=1)
     notes = Column(String(255), nullable=True)
-    purchased = Column(Integer, nullable=False, default=0)
+    purchased = Column(Boolean, nullable=False, default=False)

@@ -1,0 +1,134 @@
+<ng-container>
+  <form
+    class="max-w-xl mx-auto mt-8 p-6 bg-white rounded-xl shadow-md space-y-4"
+  >
+    <div class="flex gap-2">
+      <div class="flex-1">
+        <label for="name" class="block mb-1 font-medium text-gray-700"
+          >List Name</label
+        >
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="model.name"
+          class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="E.g. Weekly Groceries"
+          [disabled]="mode === 'view'"
+        />
+      </div>
+
+      <button
+        *ngIf="mode !== 'view'"
+        type="button"
+        (click)="showDescription = !showDescription"
+        class="flex-1 max-w-10 mt-auto bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition"
+      >
+        <i class="ti ti-code-variable-plus"></i>
+      </button>
+    </div>
+
+    <div>
+      <div
+        *ngIf="showDescription || (model.description && mode === 'view')"
+        class="mt-2"
+      >
+        <label for="description" class="block mb-1 font-medium text-gray-700"
+          >Description</label
+        >
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="model.description"
+          rows="3"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Optional notes..."
+          [disabled]="mode === 'view'"
+        ></textarea>
+      </div>
+    </div>
+    <div
+      *ngFor="let item of model.items; let i = index"
+      class="border rounded-lg p-4 space-y-2"
+    >
+      <div class="flex gap-2">
+        <label
+          *ngIf="mode !== 'new'"
+          class="relative flex items-center cursor-pointer select-none text-xl"
+        >
+          <input
+            type="checkbox"
+            [(ngModel)]="item.purchased"
+            name="purchased{{ i }}"
+            [disabled]="mode === 'edit'"
+            (change)="handleItemPurchased(item)"
+            class="peer appearance-none w-5 h-5 border-2 border-gray-300 rounded-md checked:bg-green-500 checked:border-green-500 transition relative z-10"
+          />
+          <i
+            class="ti ti-check absolute left-0 top-3 w-full h-full text-white opacity-0 pointer-events-none peer-checked:opacity-100 transition-opacity z-20"
+          ></i>
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="item.customName"
+          name="customName{{ i }}"
+          placeholder="Item Name"
+          class="flex-1 p-2 border rounded-lg"
+          *ngIf="mode === 'view' || !item.productId"
+          [disabled]="mode === 'view'"
+        />
+        <select
+          [(ngModel)]="item.productId"
+          name="productId{{ i }}"
+          class="flex-1 p-2 border rounded-lg"
+          *ngIf="mode !== 'view'"
+          (change)="handleProductChange(item)"
+        >
+          <option [value]="undefined">No Product</option>
+          <option *ngFor="let product of products" [value]="product.id">
+            {{ product.name }}
+          </option>
+        </select>
+        <input
+          type="number"
+          [(ngModel)]="item.quantity"
+          name="quantity{{ i }}"
+          class="w-12 p-2 border rounded-lg"
+          placeholder="Quantity"
+          [disabled]="mode === 'view'"
+        />
+        <button
+          *ngIf="mode !== 'view'"
+          type="button"
+          [disabled]="item.purchased"
+          (click)="!item.purchased && removeItem(i)"
+          class="w-8 h-8 my-auto bg-red-500 text-white p-auto rounded-full hover:bg-red-600 transition"
+        >
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+    </div>
+    <div
+      *ngIf="mode !== 'view'"
+      class="flex items-center justify-between mt-4 gap-8"
+    >
+      <button
+        type="button"
+        (click)="addItem()"
+        class="flex-1 max-w-10 mt-4 bg-green-500 text-white py-1 rounded-lg shadow hover:bg-green-600 transition text-xl"
+      >
+        <i class="ti ti-shopping-bag-plus"></i>
+      </button>
+
+      <button
+        type="submit"
+        class="flex-1 max-w-10 mt-4 bg-blue-500 text-white py-1 rounded-lg shadow hover:bg-blue-600 transition text-xl"
+        (submit)="saveGroceryList()"
+        (click)="saveGroceryList()"
+      >
+        <i class="ti ti-cloud-up"></i>
+      </button>
+    </div>
+  </form>
+</ng-container>

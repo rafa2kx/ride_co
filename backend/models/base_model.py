@@ -15,7 +15,7 @@ class BaseModel(db.Model):
        dict = {}
        for c in self.__table__.columns:
            value = getattr(self, c.name)
-           if isinstance(value, date ):# or isinstance(value, Decimal):
+           if isinstance(value, date):# or isinstance(value, Decimal):
                value = str(value)
            dict[c.name] = None if value is None else value
        return dict

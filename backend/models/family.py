@@ -5,7 +5,7 @@ from extension import db
 class Family(BaseModel):
     __tablename__ = 'families'
 
-    name = Column(String(100), nullable=False, unique=True)
+    name = Column(String(100), nullable=False)
     description = Column(String(255), nullable=True)
     users = db.relationship('User', back_populates='family', cascade='all, delete-orphan')
     lists = db.relationship('GroceryList', back_populates='family', cascade='all, delete-orphan')

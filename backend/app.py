@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request, g
+from flask_cors import CORS
 from flask_migrate import Migrate
 from cli import seed
 from config import Config
 from resources.groceries import groceries_bp
+from resources.products import products_bp
 from resources.authentication import auth_bp
 from extension import db, jwt
 from config import Config
@@ -17,10 +19,11 @@ def create_app():
     jwt.init_app(app)
     Migrate(app, db)
     app.cli.add_command(seed)
-    
+    CORS(app)
     """Register blueprints for the application."""
     app.register_blueprint(groceries_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(products_bp)
     
     return app
 
@@ -33,7 +36,7 @@ def convert_request_json_to_snake_case():
 
 @app.before_request
 def start_transaction():
-    if request.method in ['POST', 'PUT', 'DELETE']:
+    if request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
         db.session.begin()
 
 @app.after_request
@@ -46,7 +49,7 @@ def convert_response_to_camel_case(response):
 
 @app.teardown_request
 def end_transaction(exception=None):
-    if request.method in ['POST', 'PUT', 'DELETE']:
+    if request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
         if exception:
             db.session.rollback()
             print("Rolled back due to exception:", exception)

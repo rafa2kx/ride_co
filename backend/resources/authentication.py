@@ -11,14 +11,15 @@ auth_bp = Blueprint('auth', __name__)
 def login():
     data:dict = g.get('snake_case_json', {})
     google_token = data.get('token')
+    family_id = data.get('family_id', None)
     decoded_data:dict = jwt.decode(google_token,  options={"verify_signature": False})
     if not decoded_data:
         return make_response(message="Invalid token", success=False, status_code= 401)
 
     auth_service = get_service(AuthenticationService)
-    token = auth_service.get_token(decoded_data)
+    user_token = auth_service.get_token(decoded_data, family_id)
 
-    if not token :
+    if not user_token :
         return make_response(message="Invalid credentials", success=False, status_code= 401)
 
-    return make_response({"token": token }, 200)
+    return make_response(user_token, 200)

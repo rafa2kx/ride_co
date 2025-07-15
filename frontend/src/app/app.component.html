@@ -1,4 +1,54 @@
-<div id="root" class="bg-gray-100 w-screen h-screen">
-  <router-outlet></router-outlet>
-  <app-auth *ngIf="!isLoggedIn" />
+<div id="root" class="bg-gray-100 w-screen h-screen overflow-x-hidden">
+  <header
+    *ngIf="user"
+    class="flex items-center justify-between p-4 bg-gray-800 text-white shadow-md"
+  >
+    <div class="flex items-center gap-4">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/assets/logo.png" alt="Logo" class="h-10 w-10 rounded-full" />
+        <h1 class="text-xl font-bold">{{ title }}</h1>
+      </a>
+    </div>
+
+    <div class="flex items-center gap-8">
+      <div class="flex items-center gap-6 text-lg">
+        <a
+          href="/products"
+          class="text-gray-300 hover:text-white hover:scale-[1.02] transition"
+        >
+          <i class="ti ti-building-store"></i> Products
+        </a>
+        <span
+          (click)="showSharingModal = true"
+          class="text-gray-300 hover:text-gray-300 hover:scale-[1.02] transition cursor-pointer"
+        >
+          <i class="ti ti-share"></i> Share
+        </span>
+      </div>
+      <div class="text-right">
+        <p class="font-medium">{{ user.username }}</p>
+        <p class="text-sm text-gray-300">{{ user.email }}</p>
+      </div>
+      <img
+        [src]="user.picture"
+        alt="Profile Picture"
+        class="h-12 w-12 rounded-full object-cover border-2 border-white shadow"
+      />
+    </div>
+  </header>
+  <router-outlet *ngIf="user"></router-outlet>
+  <app-auth *ngIf="!user" (loggedInEvent)="handleLogin($event)" />
+  <app-modal *ngIf="showSharingModal">
+    <h2 class="text-center text-lg">
+      Share your groceries lists with your family members by sending them this
+      link
+    </h2>
+    <div
+      class="w-full flex justify-center items-center hover:scale-[1.02] transition cursor-pointer gap-2"
+      (click)="copyInviteLink()"
+    >
+      <p class="font-bold">{{ sharingUrl }}</p>
+      <i class="ti ti-copy"></i>
+    </div>
+  </app-modal>
 </div>

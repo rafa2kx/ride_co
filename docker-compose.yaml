@@ -26,9 +26,9 @@ services:
       DB_PASSWORD: password
       DATABASE_URL: 'postgresql://user:password@db:5432/grocery_list'
       JWT_SECRET_KEY: 'd24f6c3182fa4b50b3e1cfc7d3a7f54c8eb91d6b44b57f9d8b5b2f734ea93e44'
-      JWT_ACCESS_TOKEN_EXPIRES: 3600
+      # JWT_ACCESS_TOKEN_EXPIRES: 3600
     ports:
-      - "5000:5000"
+      - "5001:5001"
 
   # frontend:
   #   build:

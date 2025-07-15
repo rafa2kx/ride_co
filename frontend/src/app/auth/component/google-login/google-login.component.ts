@@ -1,4 +1,14 @@
-import { AfterViewInit, Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  NgZone,
+  Output,
+} from '@angular/core';
+import { AuthService } from '../../auth.service';
+import { environment } from '../../../../environments/environment';
+import { User } from '../../../shared/interfaces';
+import { ActivatedRoute } from '@angular/router';
 declare const google: any;
 @Component({
   selector: 'app-google-login',
@@ -7,11 +17,28 @@ declare const google: any;
   template: `<div id="google-signin-btn" class="m-2"></div>`,
 })
 export class GoogleLoginComponent implements AfterViewInit {
-
+  @Output() loggedInEvent = new EventEmitter<User>();
+  familyId: number | undefined;
+  constructor(
+    private authService: AuthService,
+    private ngZone: NgZone,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParamMap.subscribe((params) => {
+      const familyParam = params.get('familyId');
+      if (familyParam) {
+        this.familyId = parseInt(familyParam);
+      }
+    });
+  }
   ngAfterViewInit(): void {
     google.accounts.id.initialize({
-      client_id: '346850660717-vhu1citk7il7getnanscrki8skcjn1ue.apps.googleusercontent.com',
-      callback: this.handleCredentialResponse.bind(this),
+      client_id: environment.googleClientId,
+      callback: (response: any) => {
+        this.ngZone.run(() => {
+          this.handleCredentialResponse(response);
+        });
+      },
     });
 
     google.accounts.id.renderButton(
@@ -21,7 +48,17 @@ export class GoogleLoginComponent implements AfterViewInit {
   }
 
   handleCredentialResponse(response: any) {
-    console.log('Google JWT:', response.credential);
-    localStorage.setItem('token', response.credential);
+    this.authService
+      .authenticate(response.credential, this.familyId)
+      .subscribe({
+        next: (res) => {
+          console.log('Authentication successful:', res);
+          this.authService.setUser(res.data);
+          this.loggedInEvent.emit(res.data);
+        },
+        error: (err) => {
+          console.error('Authentication failed:', err);
+        },
+      });
   }
 }
