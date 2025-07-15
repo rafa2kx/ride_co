@@ -10,4 +10,4 @@
  4. Improve Token Expiration Handling
  5. Add Categories for Products
  6. Implement WebSockets for Realtime updates on purchases
-
+ 7. Implement Tests
