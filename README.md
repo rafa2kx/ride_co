@@ -4,11 +4,12 @@
  3. Enjoy!
 
 ## TODOS
- 1. Improve Form Validations
- 2. Pagination
- 3. Messages
- 4. Improve Token Expiration Handling
- 5. Add Categories for Products
- 6. Implement WebSockets for Realtime updates on purchases
- 7. Implement Tests
+ 1. Implement Tests for Backend and Frontend
+ 2. Improve Form Validations
+ 3. Pagination
+ 4. Messages
+ 5. Improve Token Expiration Handling and Google Token Validation
+ 6. Add Categories for Products
+ 7. Implement WebSockets for Realtime updates on purchases
  8. Implement i18n
+ 10. Add Error Pages
