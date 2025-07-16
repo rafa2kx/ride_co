@@ -7,7 +7,7 @@
  1. Improve Form Validations
  2. Pagination
  3. Messages
- 4. Improve Token Expiration Handling
+ 4. Improve Token Expiration Handling and Google Token Validation
  5. Add Categories for Products
  6. Implement WebSockets for Realtime updates on purchases
  7. Implement Tests
