@@ -12,7 +12,8 @@ export class LookupsService extends ServiceBase {
     super();
   }
   getProducts(): Observable<Message<Product[]>> {
-    const url = this.buildUrl('products');
+    const familyId = this.getUser()?.familyId;
+    const url = this.buildUrl('products', { familyId });
     return this.pipeError(this.httpClient.get(url, this.httpOptions));
   }
 }
