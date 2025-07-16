@@ -19,16 +19,22 @@
   </div>
   <div class="flex items-center justify-between mt-4 gap-8">
     <button
-      class="flex-1 max-w-10 mt-4 bg-red-500 text-white py-1 rounded-lg shadow hover:bg-red-600 transition text-xl"
+      class="flex flex-1 max-w-32 items-center mt-4 bg-red-500 text-white p-1 rounded-lg shadow hover:bg-red-600 transition gap-3 justify-center"
       (click)="deleteGroceryList($event)"
     >
-      <i class="ti ti-trash"></i>
+      <div class="text-xl">
+        <i class="ti ti-trash"></i>
+      </div>
+      <p class="text-md">Delete</p>
     </button>
     <button
-      class="flex-1 max-w-10 mt-4 bg-green-500 text-white py-1 rounded-lg shadow hover:bg-green-600 transition text-xl"
+      class="flex flex-1 max-w-32 items-center mt-4 bg-green-500 text-white p-1 rounded-lg shadow hover:bg-green-600 transition gap-3 justify-center"
       (click)="showGroceryList('edit')"
     >
-      <i class="ti ti-pencil"></i>
+      <div class="text-xl">
+        <i class="ti ti-pencil"></i>
+      </div>
+      <p class="text-md">Edit</p>
     </button>
   </div>
 </div>

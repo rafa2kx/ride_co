@@ -122,19 +122,25 @@
       <button
         type="button"
         (click)="addItem()"
-        class="flex-1 max-w-10 mt-4 bg-green-500 text-white py-1 rounded-lg shadow hover:bg-green-600 transition text-xl"
+        class="flex flex-1 max-w-32 items-center mt-4 bg-green-500 text-white p-1 rounded-lg shadow hover:bg-green-600 transition gap-3 justify-center"
       >
-        <i class="ti ti-shopping-bag-plus"></i>
+        <div class="text-xl">
+          <i class="ti ti-shopping-bag-plus"></i>
+        </div>
+        <p class="text-md">Add Item</p>
       </button>
 
       <button
         type="submit"
-        class="flex-1 max-w-10 mt-4 bg-blue-500 text-white py-1 rounded-lg shadow hover:bg-blue-600 transition text-xl"
+        class="flex flex-1 max-w-32 items-center mt-4 bg-blue-500 text-white p-1 rounded-lg shadow hover:bg-blue-600 transition gap-3 justify-center"
         (submit)="saveGroceryList()"
         (click)="saveGroceryList()"
         [disabled]="groceryListname.invalid"
       >
-        <i class="ti ti-cloud-up"></i>
+        <div class="text-xl">
+          <i class="ti ti-cloud-up"></i>
+        </div>
+        <p class="text-md">Save</p>
       </button>
     </div>
   </form>

@@ -53,15 +53,16 @@
         Price must be greater than 0.
       </p>
     </div>
-
-    <button
-      type="submit"
-      class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
-      [disabled]="priceInput.invalid || productName.invalid"
-    >
-      <i class="ti ti-cloud-up mr-2"></i
-      >{{ productForm.id ? "Update" : "Add" }} Product
-    </button>
+    <div class="flex justify-center">
+      <button
+        type="submit"
+        class="flex flex-1 max-w-32 items-center mt-2 bg-blue-500 text-white py-2 px-1 rounded-lg shadow hover:bg-blue-600 transition gap-1 justify-center"
+        [disabled]="priceInput.invalid || productName.invalid"
+      >
+        <i class="ti ti-cloud-up mr-2"></i
+        >{{ productForm.id ? "Update" : "Add" }} Product
+      </button>
+    </div>
   </form>
 
   <div class="space-y-4">

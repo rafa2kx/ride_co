@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
   GroceryList,
   GroceryListItem,
+  Message,
   Product,
   User,
 } from '../shared/interfaces';
@@ -101,7 +102,7 @@ export class GroceryListFormComponent implements OnInit {
   saveGroceryList() {
     if (this.mode === 'new') {
       this.groceryListService.addGroceryList(this.model).subscribe({
-        next: (response: any) => {
+        next: (response: Message<GroceryList>) => {
           console.log('Grocery list added successfully:', response);
           this.groceryListState.clearList();
           this.router.navigate(['/']);
@@ -112,7 +113,7 @@ export class GroceryListFormComponent implements OnInit {
       });
     } else if (this.mode === 'edit') {
       this.groceryListService.updateGroceryList(this.model).subscribe({
-        next: (response: any) => {
+        next: (response: Message<GroceryList>) => {
           console.log('Grocery list updated successfully:', response);
           this.groceryListState.clearList();
           this.router.navigate(['/']);

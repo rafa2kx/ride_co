@@ -19,19 +19,19 @@ export class GroceryListsService extends ServiceBase {
     return this.pipeError(this.httpClient.get(url, this.httpOptions));
   }
 
-  addGroceryList(list: GroceryList): Observable<Message<GroceryList[]>> {
+  addGroceryList(list: GroceryList): Observable<Message<GroceryList>> {
     const url = this.buildUrl('groceries');
     return this.pipeError(this.httpClient.post(url, list, this.httpOptions));
   }
-  updateGroceryList(list: GroceryList): Observable<Message<GroceryList[]>> {
+  updateGroceryList(list: GroceryList): Observable<Message<GroceryList>> {
     const url = this.buildUrl(`groceries/${list.id}`);
     return this.pipeError(this.httpClient.put(url, list, this.httpOptions));
   }
-  updateItem(item: GroceryListItem): Observable<Message<GroceryList[]>> {
+  updateItem(item: GroceryListItem): Observable<Message<GroceryList>> {
     const url = this.buildUrl(`groceries/items/${item.id}`);
     return this.pipeError(this.httpClient.patch(url, item, this.httpOptions));
   }
-  deleteGroceryList(listId: number): Observable<Message<GroceryList[]>> {
+  deleteGroceryList(listId: number): Observable<Message<GroceryList>> {
     const url = this.buildUrl(`groceries/${listId}`);
     return this.pipeError(this.httpClient.delete(url, this.httpOptions));
   }

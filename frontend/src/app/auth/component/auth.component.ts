@@ -7,7 +7,9 @@ import { User } from '../../shared/interfaces';
   selector: 'app-auth',
   standalone: true,
   imports: [ModalComponent, GoogleLoginComponent],
-  template: ` <app-modal [title]="'Authentication Required'">
+  template: ` <app-modal
+    [title]="'Authentication Required'"
+  >
     <h2 class="text-center">Please Login to access your Groceries Lists</h2>
     <div class="w-full flex justify-center">
       <app-google-login (loggedInEvent)="handleLogin($event)" />

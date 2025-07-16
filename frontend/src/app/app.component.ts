@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { AuthComponent } from './auth/component/auth.component';
 import { CommonModule } from '@angular/common';
 import { User } from './shared/interfaces';
 import { AuthService } from './auth/auth.service';
 import { ModalComponent } from './common/modal/modal.component';
-declare const google: any;
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, AuthComponent, ModalComponent],
+  imports: [CommonModule, RouterOutlet, AuthComponent, ModalComponent, RouterModule],
   providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

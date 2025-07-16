@@ -4,7 +4,10 @@
     class="flex items-center justify-between p-4 bg-gray-800 text-white shadow-md"
   >
     <div class="flex items-center gap-4">
-      <a href="/" class="flex items-center gap-2 hover:scale-[1.02]">
+      <a
+        [routerLink]="['./']"
+        class="flex items-center gap-2 hover:scale-[1.02]"
+      >
         <img src="/assets/logo.png" alt="Logo" class="h-10 w-10 rounded-full" />
         <h1 class="text-xl font-bold">{{ title }}</h1>
       </a>
@@ -13,7 +16,7 @@
     <div class="flex items-center gap-8">
       <div class="flex items-center gap-6 text-lg">
         <a
-          href="/products"
+          [routerLink]="['./products']"
           class="text-gray-300 hover:text-white hover:scale-[1.02] transition flex items-center gap-2"
         >
           <i class="ti ti-building-store"></i>
@@ -40,7 +43,11 @@
   </header>
   <router-outlet *ngIf="user"></router-outlet>
   <app-auth *ngIf="!user" (loggedInEvent)="handleLogin($event)" />
-  <app-modal *ngIf="showSharingModal">
+  <app-modal
+    *ngIf="showSharingModal"
+    (onCloseEvent)="showSharingModal = false"
+    [showClose]="true"
+  >
     <h2 class="text-center text-lg">
       Share your groceries lists with your family members by sending them this
       link

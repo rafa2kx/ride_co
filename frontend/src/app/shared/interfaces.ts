@@ -1,7 +1,6 @@
 export interface Message<T> {
   data: T;
   message: string;
-  success: boolean;
 }
 export interface User {
   id?: number;

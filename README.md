@@ -11,3 +11,4 @@
  5. Add Categories for Products
  6. Implement WebSockets for Realtime updates on purchases
  7. Implement Tests
+ 8. Implement i18n
