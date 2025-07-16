@@ -42,7 +42,7 @@ def update_product(id:int):
         return make_response(data=None, message="Invalid input", status_code=400)
     
     updated_product = products_service.update_product(id, product)
-    return make_response(data=updated_product, message="Product updated successfully", status_code=201)
+    return make_response(data=updated_product, message="Product updated successfully", status_code=200)
 
 
 @products_bp.route("/products/<int:id>", methods=['DELETE'])
@@ -55,4 +55,4 @@ def delete_product(id:int):
         return make_response(data=None, message="Invalid input", status_code=400)
     products_service = get_service(ProductsService)
     deleted_product = products_service.delete_product(id)
-    return make_response(data=deleted_product, message="Product deleted successfully", status_code=201)
+    return make_response(data=deleted_product, message="Product deleted successfully", status_code=200)

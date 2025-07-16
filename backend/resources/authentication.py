@@ -12,7 +12,7 @@ def login():
     data:dict = g.get('snake_case_json', {})
     google_token = data.get('token')
     family_id = data.get('family_id', None)
-    decoded_data:dict = jwt.decode(google_token,  options={"verify_signature": False})
+    decoded_data:dict = jwt.decode(google_token,  options={"verify_signature": False}) #TODO Validate Signature from Google requires more time
     if not decoded_data:
         return make_response(message="Invalid token", success=False, status_code= 401)
 

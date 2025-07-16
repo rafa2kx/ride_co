@@ -48,12 +48,12 @@ def update_grocery_list(id:int):
         return make_response(data=None, message="Invalid input", status_code=400)
     
     added_list = groceries_service.update_grocery_list(id, grocery_list)
-    return make_response(data=added_list, message="Grocery list updated successfully", status_code=201)
+    return make_response(data=added_list, message="Grocery list updated successfully", status_code=200)
 
 
-@groceries_bp.route("/groceries/items/<int:item_id>", methods=['PATCH'])
-@jwt_required()
-def update_items_status(item_id:int):
+@groceries_bp.route("/groceries/<int:list_id>/items/<int:item_id>", methods=['PATCH'])
+# @jwt_required()
+def update_items_status(list_id:int, item_id:int):
     """
     Update grocery list.
     """
@@ -63,7 +63,7 @@ def update_items_status(item_id:int):
         return make_response(data=None, message="Invalid input", status_code=400)
     
     added_list = groceries_service.update_item(item_id, grocery_list_item)
-    return make_response(data=added_list, message="Grocery list updated successfully", status_code=201)
+    return make_response(data=added_list, message="Grocery list updated successfully", status_code=200)
 
 @groceries_bp.route("/groceries/<int:id>", methods=['DELETE'])
 @jwt_required()
@@ -76,4 +76,4 @@ def delete_grocery_list(id:int):
         return make_response(data=None, message="Invalid input", status_code=400)
     
     added_list = groceries_service.delete_grocery_list(id)
-    return make_response(data=added_list, message="Grocery list deleted successfully", status_code=201)
+    return make_response(data=added_list, message="Grocery list deleted successfully", status_code=200)

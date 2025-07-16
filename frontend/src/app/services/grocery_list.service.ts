@@ -28,7 +28,7 @@ export class GroceryListsService extends ServiceBase {
     return this.pipeError(this.httpClient.put(url, list, this.httpOptions));
   }
   updateItem(item: GroceryListItem): Observable<Message<GroceryList>> {
-    const url = this.buildUrl(`groceries/items/${item.id}`);
+    const url = this.buildUrl(`groceries/${item.groceryListId}/items/${item.id}`);
     return this.pipeError(this.httpClient.patch(url, item, this.httpOptions));
   }
   deleteGroceryList(listId: number): Observable<Message<GroceryList>> {

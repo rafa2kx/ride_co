@@ -3,7 +3,6 @@ import inflection
 
 def make_response(data=None, message="", success=True, status_code=200):
     response = {
-        "success": success,
         "message": message,
         "data": data
     }
