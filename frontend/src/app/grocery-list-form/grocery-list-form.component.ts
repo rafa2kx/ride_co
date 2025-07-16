@@ -62,7 +62,10 @@ export class GroceryListFormComponent implements OnInit {
       const product = this.products.find((p) => p.id == item.productId);
       if (product) {
         item.customName = product.name;
+      } else {
+        item.productId = undefined;
       }
+      
     }
   }
 

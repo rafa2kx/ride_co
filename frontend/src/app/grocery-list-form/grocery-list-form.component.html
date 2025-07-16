@@ -50,70 +50,65 @@
         ></textarea>
       </div>
     </div>
-    <div
-      *ngFor="let item of model.items; let i = index"
-      class="border rounded-lg p-2 space-y-2"
-    >
-      <div class="flex gap-2">
-        <label
-          *ngIf="mode !== 'new'"
-          class="relative flex items-center cursor-pointer select-none text-xl"
-        >
-          <input
-            type="checkbox"
-            [(ngModel)]="item.purchased"
-            name="purchased{{ i }}"
-            [disabled]="mode === 'edit'"
-            (change)="handleItemPurchased(item)"
-            class="peer appearance-none w-5 h-5 border-2 border-gray-300 rounded-md checked:bg-green-500 checked:border-green-500 transition relative z-10"
-          />
-          <i
-            class="ti ti-check absolute left-0 top-3 w-full h-full text-white opacity-0 pointer-events-none peer-checked:opacity-100 transition-opacity z-20"
-          ></i>
-        </label>
+    <div *ngFor="let item of model.items; let i = index" class="flex flex-wrap md:flex-nowrap gap-2">
+      <label
+        *ngIf="mode !== 'new'"
+        class="relative flex items-center cursor-pointer select-none text-xl"
+      >
+        <input
+          type="checkbox"
+          [(ngModel)]="item.purchased"
+          name="purchased{{ i }}"
+          [disabled]="mode === 'edit'"
+          (change)="handleItemPurchased(item)"
+          class="peer appearance-none w-5 h-5 border-2 border-gray-300 rounded-md checked:bg-green-500 checked:border-green-500 transition relative z-10"
+        />
+        <i
+          class="ti ti-check absolute left-0 top-3 w-full h-full text-white opacity-0 pointer-events-none peer-checked:opacity-100 transition-opacity z-20"
+        ></i>
+      </label>
 
-        <input
-          type="text"
-          [(ngModel)]="item.customName"
-          name="customName{{ i }}"
-          placeholder="Item Name"
-          class="flex-1 p-2 border rounded-lg"
-          *ngIf="mode === 'view' || !item.productId"
-          [disabled]="mode === 'view'"
-        />
-        <select
-          [(ngModel)]="item.productId"
-          name="productId{{ i }}"
-          class="flex-1 p-2 border rounded-lg"
-          *ngIf="mode !== 'view'"
-          (change)="handleProductChange(item)"
-        >
-          <option [value]="undefined">No Product</option>
-          <option *ngFor="let product of products" [value]="product.id">
-            {{ product.name }}
-          </option>
-        </select>
-        <input
-          type="number"
-          [(ngModel)]="item.quantity"
-          name="quantity{{ i }}"
-          class="w-12 p-2 border rounded-lg"
-          placeholder="Quantity"
-          [disabled]="mode === 'view'"
-          required
-          min="1"
-          step="1"
-        />
-        <button
-          *ngIf="mode !== 'view'"
-          type="button"
-          [disabled]="item.purchased"
-          (click)="!item.purchased && removeItem(i)"
-          class="w-8 h-8 my-auto bg-red-500 text-white p-auto rounded-full hover:bg-red-600 transition"
-        >
-          <i class="ti ti-trash"></i>
-        </button>
-      </div>
+      <input
+        type="text"
+        [(ngModel)]="item.customName"
+        name="customName{{ i }}"
+        placeholder="Item Name"
+        class="flex-1 p-2 border rounded-lg"
+        *ngIf="mode === 'view' || !item.productId"
+        [disabled]="mode === 'view'"
+      />
+      <select
+        [(ngModel)]="item.productId"
+        name="productId{{ i }}"
+        class="flex-1 p-2 border rounded-lg"
+        *ngIf="mode !== 'view'"
+        (change)="handleProductChange(item)"
+      >
+        <option [value]="undefined">No Product</option>
+        <option *ngFor="let product of products" [value]="product.id">
+          {{ product.name }}
+        </option>
+      </select>
+      <input
+        type="number"
+        [(ngModel)]="item.quantity"
+        name="quantity{{ i }}"
+        class="w-12 p-2 border rounded-lg"
+        placeholder="Quantity"
+        [disabled]="mode === 'view'"
+        required
+        min="1"
+        step="1"
+      />
+      <button
+        *ngIf="mode !== 'view'"
+        type="button"
+        [disabled]="item.purchased"
+        (click)="!item.purchased && removeItem(i)"
+        class="w-8 h-8 my-auto bg-red-500 text-white p-auto rounded-full hover:bg-red-600 transition"
+      >
+        <i class="ti ti-trash"></i>
+      </button>
     </div>
     <div
       *ngIf="mode !== 'view'"
