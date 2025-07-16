@@ -13,8 +13,9 @@ def get_all_products():
     """
     Returns a list of all products.
     """
+    family_id = request.args.get('familyId', type=int)
     products_service = get_service(ProductsService)
-    return make_response(products_service.get_all_products())    
+    return make_response(products_service.get_all_products(family_id))    
 
 @products_bp.route("/products", methods=['POST'])
 @jwt_required()

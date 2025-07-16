@@ -1,5 +1,5 @@
 
-from sqlalchemy import and_, select
+from sqlalchemy import and_, select,or_
 from interfaces import IService
 from models.grocery_list_item import GroceryListItem
 from models.product import Product
@@ -8,8 +8,8 @@ from models.grocery_list import GroceryList
 
 class ProductsRepository(BaseRepository):
     
-    def get_all_products(self):
-        products = self.session.query(Product).all()
+    def get_all_products(self, family_id:int):
+        products = self.session.query(Product).filter(or_(Product.family_id == family_id, Product.family_id == None) ).all()
         return [product.as_dict() for product in products]
     
     def add_product(self, product: dict):

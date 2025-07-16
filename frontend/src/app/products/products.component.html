@@ -77,13 +77,15 @@
       <div class="flex gap-2">
         <button
           (click)="editProduct(product)"
-          class="w-8 h-8 flex items-center justify-center bg-yellow-400 text-white rounded-full hover:bg-yellow-500"
+          [disabled]="product.familyId !== user?.familyId"
+          class="w-8 h-8 flex items-center justify-center bg-yellow-400 text-white rounded-full hover:bg-yellow-500 disabled:bg-yellow-200"
         >
           <i class="ti ti-edit"></i>
         </button>
         <button
           (click)="deleteProduct(product.id)"
-          class="w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full hover:bg-red-600"
+          [disabled]="product.familyId !== user?.familyId"
+          class="w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full hover:bg-red-600 disabled:bg-red-200"
         >
           <i class="ti ti-trash"></i>
         </button>

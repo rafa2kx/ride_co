@@ -85,7 +85,8 @@ class GroceriesRepository(BaseRepository):
             return None
         
         for key, value in grocery_list_item.items():
-            setattr(item, key, value)
+            if not isinstance(value, dict):
+                setattr(item, key, value)
         
         self.session.flush()
         return item.as_dict()

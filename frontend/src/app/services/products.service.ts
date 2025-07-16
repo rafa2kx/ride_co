@@ -12,7 +12,8 @@ export class ProductsService extends ServiceBase {
     super();
   }
   addProduct(product: Product): Observable<Message<Product>> {
-    const url = this.buildUrl('products');
+    const familyId = this.getUser()?.familyId;
+    const url = this.buildUrl('products', { familyId });
     return this.pipeError(this.httpClient.post(url, product, this.httpOptions));
   }
   updateProduct(product: Product): Observable<Message<Product>> {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../shared/interfaces';
+import { Product, User } from '../shared/interfaces';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LookupsService } from '../services/lookups.service';
@@ -18,6 +18,13 @@ export class ProductsComponent implements OnInit {
     private lookupsService: LookupsService,
     private productService: ProductsService
   ) {}
+
+  productForm: Product = {
+    name: '',
+    price: 0,
+  };
+  user?: User;
+
   ngOnInit(): void {
     this.lookupsService.getProducts().subscribe({
       next: (response) => {
@@ -27,6 +34,8 @@ export class ProductsComponent implements OnInit {
         console.error('Error loading products:', error);
       },
     });
+    this.user = this.lookupsService.getUser();
+    this.productForm.familyId = this.lookupsService.getUser()?.familyId || 0;
   }
 
   deleteProduct(productId?: number) {
@@ -45,10 +54,6 @@ export class ProductsComponent implements OnInit {
   editProduct(product: Product) {
     this.productForm = product;
   }
-  productForm: Product = {
-    name: '',
-    price: 0,
-  };
 
   onProductSubmit() {
     const user = this.productService.getUser();

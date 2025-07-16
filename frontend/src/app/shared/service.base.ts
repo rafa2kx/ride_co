@@ -23,7 +23,7 @@ export class ServiceBase {
 
   static handleError(response: any): Observable<never> {
     console.log(response); // eslint-disable-line no-console
-    if (response.error.msg === 'Token has expired') {
+    if (response.error.msg === 'Token has expired' || response.error.msg === "Signature verification failed") {
       localStorage.removeItem('user');
     }
     return throwError(() => response);

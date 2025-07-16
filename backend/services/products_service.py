@@ -7,9 +7,9 @@ class ProductsService(BaseService):
         super().__init__()
         self.products_repository = self._get_repository(ProductsRepository)
 
-    def get_all_products(self):
+    def get_all_products(self, family_id:int):
         """Fetch all products."""
-        return self.products_repository.get_all_products()
+        return self.products_repository.get_all_products(family_id)
     
     def add_product(self, product: dict):
         """Add a new Product."""
